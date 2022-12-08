@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 $url = $_SERVER['REQUEST_URI'];
 $urlAfter=parse_url($url);
 $path=$urlAfter['path'];
@@ -15,6 +15,7 @@ if($login == "login"){
 if($path == '/'){
     require 'Views/HTML/Login.html';
 }
-if(isset($_POST["111"])){
-    $user = $_POST["111"];
+
+if($path == '/student'){
+    require 'Views/HTML/Student/StudentMain.html';
 }
