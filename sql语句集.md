@@ -147,3 +147,14 @@ create table if not exists daily_health(
 );
 ```
 
+班级学生关系表：
+
+```sql
+create table if not exists classmember(
+    	student_id int UNIQUE NOT NULL primary key,
+    	class_name varchar(50) NOT NULL primary key,
+    	foreign	key(student_id) references student(student_id),  	
+    	foreign	key(class_name) references class(class_name),  
+);
+```
+
