@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>进校申请</title>
+    <link rel="stylesheet" type="text/css" href="../../Views/CSS/Student/StudentEnterApply.css">
+</head>
+
+<script type="text/javascript" src="../../Views/JS/Student/StudentEnterApply.js"></script>
+
+<body>
+<div class="form-main">
+    <form class="form" action="?type=returnToStudent" method="post">
+        <div class="input-main">
+            <div class="header">
+                <h1 class="title">返校申请</h1>
+                <button class="return" onclick="returnToStudentMain()">返回</button>
+            </div>
+            <div class="input">原因：<input type="text" style="width: 75%;"></div>
+            <div class="input">返校时间：<input type="text" style="width: 75%"></div>
+            <div class="button"><button type="submit" onclick="submitApply()">提交申请</button></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

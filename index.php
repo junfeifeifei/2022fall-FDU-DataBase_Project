@@ -4,18 +4,27 @@ $url = $_SERVER['REQUEST_URI'];
 $urlAfter=parse_url($url);
 $path=$urlAfter['path'];
 
-$login = "";
+$type = "";
 if(isset($_GET["type"])){
-    $login = $_GET["type"];
+    $type = $_GET["type"];
 }
-if($login == "login"){
+//对于跳转类型的判断
+if($type == "login"){
     require 'Controllers/LoginController.php';
 }
-
+if($type == "returnToStudent"){
+    echo "<script>window.location.href='/student';</script>";
+}
 if($path == '/'){
     require 'Views/HTML/Login.html';
 }
-
+//学生的界面跳转
 if($path == '/student'){
     require 'Views/HTML/Student/StudentMain.html';
+}
+if($path == '/student/leaveapply'){
+    require 'Views/HTML/Student/StudentLeaveApply.html';
+}
+if($path == '/student/enterapply'){
+    require 'Views/HTML/Student/StudentEnterApply.html';
 }
