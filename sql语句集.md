@@ -13,7 +13,6 @@ create table if not exists student(
         email varchar(50) DEFAULT NULL,
         dormitory varchar(50) DEFAULT NULL,
         living_address varchar(50) DEFAULT NULL,
-        family_address varchar(50) DEFAULT NULL,
         idcard_type varchar(50) DEFAULT NULL,
         idnumber char(18) DEFAULT NULL,
         belong_campus_name varchar(50) NOT NULL,
@@ -49,9 +48,10 @@ create table if not exists department(
 
 ```sql
 create table if not exists class(
-        class_name varchar(50) UNIQUE NOT NULL primary key,
+        class_name varchar(50) NOT NULL,
     	counselor_id int NOT NULL,
     	department_name varchar(50) NOT NULL,
+    	primary key(class_name,department_name),
 		foreign	key(counselor_id) references teacher(teacher_id),    	
     	foreign	key(department_name) references department(department_name)    
 );
