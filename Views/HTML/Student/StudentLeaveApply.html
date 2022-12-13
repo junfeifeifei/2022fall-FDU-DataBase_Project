@@ -6,11 +6,16 @@
     <link rel="stylesheet" type="text/css" href="../../Views/CSS/Student/StudentLeaveApply.css">
 </head>
 
+<script type="text/javascript" src="../../Views/JS/Student/StudentLeaveApply.js"></script>
+
 <body>
 <div class="form-main">
-    <form class="form" action="/student/leaveapply">
+    <form class="form" action="?type=returnToStudent" method="post">
         <div class="input-main">
-            <h1>离校申请</h1>
+            <div class="header">
+                <h1 class="title">离校申请</h1>
+                <button class="return" onclick="returnToStudentMain()">返回</button>
+            </div>
             <div class="input">原因：<input type="text" style="width: 75%;"></div>
             <div class="input">目的地：<input type="text" style="width: 75%"></div>
             <div class="input">离校时间：<input type="text" style="width: 75%"></div>

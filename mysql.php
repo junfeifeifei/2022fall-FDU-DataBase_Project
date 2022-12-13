@@ -5,6 +5,7 @@ if(!$con){
 }
 else echo "连接数据库成功";
 mysqli_query($con,"set names utf8");
+
 $sql = "create Table IF NOT EXISTS student".
     "(ID INTEGER ,primary key (ID))";
 $result = mysqli_query($con,$sql);

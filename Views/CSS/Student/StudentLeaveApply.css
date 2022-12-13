@@ -30,3 +30,17 @@
     width: 50%;
     margin: 3% auto 10% auto;
 }
+.header{
+    display: flex;
+    flex-direction: row;
+}
+.title{
+    width: 80%;
+    padding-left: 40%;
+    padding-right: 20%;
+}
+.return{
+    width: 20%;
+    height: 20%;
+    margin: auto 0 auto 0;
+}
