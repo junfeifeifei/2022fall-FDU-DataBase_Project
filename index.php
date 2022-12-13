@@ -42,9 +42,14 @@ else{//这里开始是功能的判断
     $type = $_GET["type"];
     //登录功能
     if($type == "login"){
-        require 'Controllers/LoginController.php';
+        require 'Controllers/Login&outController.php';
+        login();
     }
-    if($type == "returnToStudent"){
+    else if($type == "logout"){
+        require 'Controllers/Login&outController.php';
+        logout();
+    }
+    else if($type == "returnToStudent"){
         echo "<script>window.location.href='/student';</script>";
     }
 }
