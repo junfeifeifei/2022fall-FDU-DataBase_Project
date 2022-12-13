@@ -13,9 +13,11 @@ $path=$urlAfter['path'];
 
 
 if(!isset($_GET["type"])){//这里面代表的是页面显示部分
+    //主页面
     if($path=='/'){
         require 'Views/HTML/Login.html';
     }
+    //学生的页面
     else if($path=="/student"){
         if(!isset($_SESSION['student_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
@@ -33,6 +35,13 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Views/HTML/Student/StudentEnterApply.html';
+    }
+    //教师的页面
+    else if($path == '/admin'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Admin/AdminMain.html';
     }
     else{
         echo "<script>alert('您访问的页面不存在!');history.back();</script>";

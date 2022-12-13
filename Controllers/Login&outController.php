@@ -29,6 +29,8 @@ function login(){
         $passwd = $userInform->fetch_assoc()['password'];
         if($passwd==$inputPassword){
             $_SESSION['student_id']=$inputId;
+            unset($_SESSION['teacher_id']);
+            unset($_SESSION['authority']);
             $userInform->free();
             $mysqli->close();
             echo"<script>alert('登陆成功！');window.location.href='/student';</script>";
@@ -51,12 +53,15 @@ function login(){
             echo"<script>alert('工号不存在！请重新输入！');history.back();</script>";
             exit;
         }
-        $passwd = $userInform->fetch_assoc()['password'];
+        $row=$userInform->fetch_assoc();
+        $passwd = $row['password'];
         if($passwd==$inputPassword){
             $_SESSION['teacher_id']=$inputId;
+            $_SESSION['authority']=$row['authority'];
+            unset($_SESSION['student_id']);
             $userInform->free();
             $mysqli->close();
-            echo"<script>alert('登陆成功！');window.location.href='/teacher';</script>";
+            echo"<script>alert('登陆成功！');window.location.href='/admin';</script>";
             exit;
         }
         else{
