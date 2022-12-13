@@ -189,29 +189,76 @@ function dataInsert(){
         exit;
     }
     //插入老师
-    $insert_teacher="insert ignore into teacher (teacher_id,name,authority,password) values ('01001','aaa',3,'123456'),('01002','bbb',3,'123456'),('01003','ccc',3,'123456'),('01004','ddd',3,'123456'),('01005','eee',3,'123456')";
+    $insert_teacher="insert ignore into teacher (teacher_id,name,authority,password) values 
+    ('01001','aaa',3,'123456'),
+    ('01002','bbb',3,'123456'),
+    ('01003','ccc',3,'123456'),
+    ('01004','ddd',3,'123456'),
+    ('01005','eee',3,'123456')";
     if(!$mysqli->query($insert_teacher)){
         echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;
     }
     //插入院系
-    $insert_department="insert ignore into department (department_name,manager_id) values ('软件学院',NULL),('计算机科学技术学院',NULL),('微电子学院',NULL),('信息科学与工程学院',NULL),('大数据学院',NULL),('法学院',NULL),('经济学院',NULL),('管理学院',NULL),('新闻学院',NULL),('基础医学院',NULL)";
+    $insert_department="insert ignore into department (department_name,manager_id) values
+    ('软件学院','00010'),
+    ('计算机科学技术学院','00009'),
+    ('微电子学院','00004'),
+    ('信息科学与工程学院','00001'),
+    ('大数据学院','00003'),
+    ('法学院','00006'),
+    ('经济学院','00008'),
+    ('管理学院','00007'),
+    ('新闻学院','00005'),
+    ('基础医学院','00002')";
     if(!$mysqli->query($insert_department)){
         echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;
     }
     //插入班级
-    $insert_class="insert ignore into class (class_name,counselor_id,department_name) values ('1班','01001','软件学院'),('2班','01002','软件学院'),('3班','01003','软件学院'),('4班','01004','软件学院'),('5班','01005','软件学院'),('1班',NULL,'计算机科学技术学院')";
+    $insert_class="insert ignore into class (class_name,counselor_id,department_name) values 
+    ('1班','01001','软件学院'),
+    ('2班','01002','软件学院'),
+    ('3班','01003','软件学院'),
+    ('4班','01004','软件学院'),
+    ('5班','01005','软件学院'),
+    ('1班',NULL,'计算机科学技术学院')";
     if(!$mysqli->query($insert_class)){
         echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;
     }
     //插入学生
-    $insert_student="insert ignore into student (student_id,name,phone_number,email,dormitory,living_address,idcard_type,idnumber,belong_campus_name,class_name,department_name,password) values ('20301234567','张三','18112345678','20301234567@fudan.edu.cn',NULL,NULL,'二代身份证',NULL,'邯郸校区','1班','软件学院','123456'),('20301234568','李四','18212345678','20301234568@fudan.edu.cn',NULL,NULL,'二代身份证',NULL,'邯郸校区','1班','计算机科学技术学院','123456')";
+    $insert_student="insert ignore into student (student_id,name,phone_number,email,dormitory,living_address,idcard_type,idnumber,belong_campus_name,class_name,department_name,password) values 
+    ('20301234567','张三','18112345678','20301234567@fudan.edu.cn',NULL,NULL,'二代身份证',NULL,'邯郸校区','1班','软件学院','123456'),
+    ('20301234568','李四','18212345678','20301234568@fudan.edu.cn',NULL,NULL,'二代身份证',NULL,'邯郸校区','1班','计算机科学技术学院','123456')";
     if(!$mysqli->query($insert_student)){
+        echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
+        $mysqli->close();
+        exit;
+    }
+    //插入院系管理员
+    $insert_admin="insert ignore into teacher (teacher_id,name,authority,password) values 
+    ('00001','info',2,'123456'),
+    ('00002','medical',2,'123456'),
+    ('00003','datascience',2,'123456'),
+    ('00004','micro',2,'123456'),
+    ('00005','jour',2,'123456'),
+    ('00006','law',2,'123456'),
+    ('00007','manage',2,'123456'),
+    ('00008','econ',2,'123456'),
+    ('00009','comp',2,'123456'),
+    ('00010','soft',2,'123456')";
+    if(!$mysqli->query($insert_admin)){
+        echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
+        $mysqli->close();
+        exit;
+    }
+    //插入超级管理员
+    $insert_superadmin="insert ignore into teacher (teacher_id,name,authority,password) values ('00000','root',1,'123456')";
+    if(!$mysqli->query($insert_superadmin)){
         echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;

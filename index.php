@@ -36,13 +36,47 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/Student/StudentEnterApply.html';
     }
-    //教师的页面
+    //辅导员的界面
+    else if($path == '/tutor'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Tutor/TutorMain.html';
+    }
+    //院系管理员的页面
     else if($path == '/admin'){
         if(!isset($_SESSION['teacher_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Views/HTML/Admin/AdminMain.html';
     }
+    //超级管理员的界面
+    else if($path == '/superadmin'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminMain.html';
+    }
+    else if($path == '/superadmin'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminMain.html';
+    }
+    else if($path == '/superadmin/studentinfo'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminStudentInfo.php';
+    }
+    else if($path == '/superadmin/teacherinfo'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminTeacherInfo.php';
+    }
+
+
     else{
         echo "<script>alert('您访问的页面不存在!');history.back();</script>";
     }

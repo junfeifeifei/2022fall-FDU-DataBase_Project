@@ -8,30 +8,9 @@
 
 <body>
 <div class = "header">
-    <?php
-        session_start();
-        if($_SESSION['authority']==1){
-    ?>
-
-
-
-    <?php
-        }
-        else{
-    ?>
     <li class="li"><a href="/admin/admission_approval">审批进校申请</a></li>
     <li class="li"><a href="/admin/departure_approval">审批离校申请</a></li>
-    <li class="li"><a href="/admin/
-    <?php
-            if($_SESSION['authority']==3){
-                    echo 'classAnalyse">班级数据分析';
-                }
-            else if($_SESSION['authority']==2){
-                echo 'departAnalyse">院系数据分析';
-            }
-    ?>
-    </a></li>
-    <?php } ?>
+    <li class="li"><a href="/admin/depart_analyse">院系数据分析</a></li>
     <li class="li"><a href="/admin?type=logout">退出登录</a></li>
 </div>
 </body>

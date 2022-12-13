@@ -55,13 +55,22 @@ function login(){
         }
         $row=$userInform->fetch_assoc();
         $passwd = $row['password'];
+        $authority = $row['authority'];
         if($passwd==$inputPassword){
             $_SESSION['teacher_id']=$inputId;
             $_SESSION['authority']=$row['authority'];
             unset($_SESSION['student_id']);
             $userInform->free();
             $mysqli->close();
-            echo"<script>alert('登陆成功！');window.location.href='/admin';</script>";
+            if($authority == 1){
+                echo"<script>alert('登陆成功！');window.location.href='/superadmin';</script>";
+            }
+            else if($authority == 2){
+                echo"<script>alert('登陆成功！');window.location.href='/admin';</script>";
+            }
+            else if($authority == 3){
+                echo"<script>alert('登陆成功！');window.location.href='/tutor';</script>";
+            }
             exit;
         }
         else{
