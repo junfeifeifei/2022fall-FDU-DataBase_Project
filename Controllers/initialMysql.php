@@ -160,10 +160,10 @@ function initial_mysql(){
     }
     //新建健康打卡表
     $createDailyHealth = "create table if not exists daily_health(
-        daily_health_id int UNIQUE NOT NULL primary key,
+        daily_health_id int primary key auto_increment,
         student_id char(11) NOT NULL,
         health_state int NOT NULL,
-        record_date  DATETIME NOT NULL,
+        record_date  DATE NOT NULL,
         record_location varchar(50) NOT NULL,
         temperature float NOT NULL,
         foreign    key(student_id) references student(student_id)    

@@ -36,6 +36,12 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/Student/StudentEnterApply.html';
     }
+    else if($path == '/student/daily_health'){
+        if(!isset($_SESSION['student_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Student/StudentDailyHealth.html';
+    }
     //辅导员的界面
     else if($path == '/tutor'){
         if(!isset($_SESSION['teacher_id'])){
@@ -101,8 +107,18 @@ else{//这里开始是功能的判断
     else if($type == "returnToStudent"){
         echo "<script>window.location.href='/student';</script>";
     }
+    else if($type == "dailyHealthApply"){
+        if(!isset($_SESSION['student_id'])){
+            echo"<script>alert('您无权使用该功能');history.back();</script>";
+        }
+        else require 'Controllers/dailyhealthController.php';
+        dailyhealthapply();
+    }
     //超级管理员功能
     else if($type == "addstudent"){
-        require 'Controllers/SuperAdminAddStudent.php';
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Controllers/SuperAdminAddStudent.php';
     }
 }

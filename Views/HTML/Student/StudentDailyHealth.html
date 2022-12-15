@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>健康打卡</title>
+    <link rel="stylesheet" type="text/css" href="../../Views/CSS/Student/StudentDailyHealth.css">
+</head>
+
+<script type="text/javascript" src="./../Views/JS/Student/Studentdailyhealth.js"></script>
+<?php
+session_start();
+$mysqli = mysqli_connect("localhost","root","1234","admission");
+if(!$mysqli){
+    echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
+    exit;
+}
+$student_id=$_SESSION['student_id'];
+date_default_timezone_set('PRC');
+$currentDate= $showtime = date("Y-m-d");
+$flag=0;
+$selectDailyhealth="select * from daily_health where student_id='$student_id' and record_date='$currentDate'";
+$row=$mysqli->query($selectDailyhealth);
+if(mysqli_num_rows($row)){
+    echo "<script>alert('您今日已经填报健康信息！');</script>";
+    $flag=1;
+};
+if($flag==0){
+    $mysqli->close();
+?>
+<body>
+<div class="form-main">
+    <form class="form" action="?type=dailyHealthApply" method="post">
+        <div class="input-main">
+            <div class="header">
+                <h1 class="title">健康打卡</h1>
+                <button class="return" onclick="history.back()">返回</button>
+            </div>
+            <div class="input">填报日期<input id="currentDate" name="currentDate" style="width: 75%;" value="<?php echo $currentDate; ?>" readonly></div>
+            <div class="input">学号<input id="student_id" name="student_id" style="width: 75%;" value="<?php echo $_SESSION['student_id']; ?>" readonly></div>
+            <div class="input">姓名<input id="name"  name="name" style="width: 75%;" value="<?php echo $_SESSION['name']; ?>" readonly></div>
+            <div class="input">健康状态<select id="health_state" name="health_state" type="number" class="input" style="width: 76.5%;">
+                <option selected value="0">请选择</option>
+                <option value="1">一切正常</option>
+                <option value="2">阳了个阳</option>
+                <option value="3">发烧但是没阳</option>
+            </select></div>
+
+            <div class="input">填报地点<input id="record_location" name="record_location" type="text" style="width: 75%;"></div>
+            <div class="input" >当前体温<input id="temperature" name="temperature" type="number" style="width: 75%"></div>
+            <div class="button"><button type="submit" onclick="return submitTest()">提交</button></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<?php
+}
+else{
+$row = $row->fetch_assoc();
+?>
+
+<body>
+<div class="form-main">
+    <form class="form" action="?type=returnToStudent" method="post">
+        <div class="input-main">
+            <div class="header">
+                <h1 class="title">返校申请</h1>
+                <button class="return" onclick="returnToStudentMain()">返回</button>
+            </div>
+            <div class="input">填报日期<input style="width: 75%;" value="<?php echo $currentDate; ?>" readonly></div>
+            <div class="input">学号<input  style="width: 75%;" value="<?php echo $_SESSION['student_id']; ?>" readonly></div>
+            <div class="input">姓名<input  style="width: 75%;" value="<?php echo $_SESSION['name']; ?>" readonly></div>
+            <div class="input">健康状态<input  style="width: 75%;" value="<?php
+                if($row['health_state']==1) echo "一切正常";
+                if($row['health_state']==2) echo "阳了个阳";
+                if($row['health_state']==1) echo "发烧但是没阳";
+             ?>" readonly>
+            </div>
+
+            <div class="input">填报地点<input  style="width: 75%;" value="<?php echo $row['record_location']; ?>" readonly></div>
+            <div class="input" >当前体温<input  style="width: 75%;" value="<?php echo $row['temperature']; ?>" readonly></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
+<?php
+}
+?>

@@ -26,9 +26,12 @@ function login(){
             echo"<script>alert('学号不存在！请重新输入！');history.back();</script>";
             exit;
         }
-        $passwd = $userInform->fetch_assoc()['password'];
+        $row = $userInform->fetch_assoc();
+        $passwd = $row['password'];
         if($passwd==$inputPassword){
+            $name = $row['name'];
             $_SESSION['student_id']=$inputId;
+            $_SESSION['name']=$name;
             unset($_SESSION['teacher_id']);
             unset($_SESSION['authority']);
             $userInform->free();
@@ -57,8 +60,10 @@ function login(){
         $passwd = $row['password'];
         $authority = $row['authority'];
         if($passwd==$inputPassword){
+            $name = $row['name'];
             $_SESSION['teacher_id']=$inputId;
             $_SESSION['authority']=$row['authority'];
+            $_SESSION['name']=$name;
             unset($_SESSION['student_id']);
             $userInform->free();
             $mysqli->close();
