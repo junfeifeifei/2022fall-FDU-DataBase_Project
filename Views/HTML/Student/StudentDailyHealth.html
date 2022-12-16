@@ -16,9 +16,10 @@ if(!$mysqli){
 }
 $student_id=$_SESSION['student_id'];
 date_default_timezone_set('PRC');
-$currentDate= $showtime = date("Y-m-d");
+$currentDate1= date("Y-m-d");
+$currentDate= date("Y-m-d H:i:s");
 $flag=0;
-$selectDailyhealth="select * from daily_health where student_id='$student_id' and record_date='$currentDate'";
+$selectDailyhealth="select * from daily_health where student_id='$student_id' and record_date like '$currentDate1%'";
 $row=$mysqli->query($selectDailyhealth);
 if(mysqli_num_rows($row)){
     echo "<script>alert('您今日已经填报健康信息！');</script>";
@@ -67,7 +68,7 @@ $row = $row->fetch_assoc();
                 <h1 class="title">健康打卡</h1>
                 <button class="return" onclick="returnToStudentMain()">返回</button>
             </div>
-            <div class="input">填报日期<input style="width: 75%;" value="<?php echo $currentDate; ?>" readonly></div>
+            <div class="input">填报日期<input style="width: 75%;" value="<?php echo $row['record_date']; ?>" readonly></div>
             <div class="input">学号<input  style="width: 75%;" value="<?php echo $_SESSION['student_id']; ?>" readonly></div>
             <div class="input">姓名<input  style="width: 75%;" value="<?php echo $_SESSION['name']; ?>" readonly></div>
             <div class="input">健康状态<input  style="width: 75%;" value="<?php

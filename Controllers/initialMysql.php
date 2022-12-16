@@ -144,7 +144,7 @@ function initial_mysql(){
         daily_health_id int primary key auto_increment,
         student_id char(11) NOT NULL,
         health_state int NOT NULL,
-        record_date  DATE NOT NULL,
+        record_date  DATETIME NOT NULL,
         record_location varchar(50) NOT NULL,
         temperature float NOT NULL,
         foreign    key(student_id) references student(student_id)    
@@ -220,6 +220,23 @@ function dataInsert(){
         $mysqli->close();
         exit;
     }
+    //插入院系管理员
+    $insert_admin="insert ignore into teacher (teacher_id,name,authority,password) values 
+    ('00001','info',2,'123456'),
+    ('00002','medical',2,'123456'),
+    ('00003','datascience',2,'123456'),
+    ('00004','micro',2,'123456'),
+    ('00005','jour',2,'123456'),
+    ('00006','law',2,'123456'),
+    ('00007','manage',2,'123456'),
+    ('00008','econ',2,'123456'),
+    ('00009','comp',2,'123456'),
+    ('00010','soft',2,'123456')";
+    if(!$mysqli->query($insert_admin)){
+        echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
+        $mysqli->close();
+        exit;
+    }
     //插入院系
     $insert_department="insert ignore into department (department_name,manager_id) values
     ('软件学院','00010'),
@@ -259,23 +276,6 @@ function dataInsert(){
         $mysqli->close();
         exit;
     }
-    //插入院系管理员
-    $insert_admin="insert ignore into teacher (teacher_id,name,authority,password) values 
-    ('00001','info',2,'123456'),
-    ('00002','medical',2,'123456'),
-    ('00003','datascience',2,'123456'),
-    ('00004','micro',2,'123456'),
-    ('00005','jour',2,'123456'),
-    ('00006','law',2,'123456'),
-    ('00007','manage',2,'123456'),
-    ('00008','econ',2,'123456'),
-    ('00009','comp',2,'123456'),
-    ('00010','soft',2,'123456')";
-    if(!$mysqli->query($insert_admin)){
-        echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
-        $mysqli->close();
-        exit;
-    }
     //插入学生进校权限
     $insert_access="insert ignore into access (student_id,campus_name,state) values ('20301234567','邯郸校区',1),
     ('20301234567','江湾校区',1),
@@ -293,6 +293,13 @@ function dataInsert(){
     //插入超级管理员
     $insert_superadmin="insert ignore into teacher (teacher_id,name,authority,password) values ('00000','root',1,'123456')";
     if(!$mysqli->query($insert_superadmin)) {
+        echo "<script>alert('数据插入失败！请重新初始化项目');</script>";
+        $mysqli->close();
+        exit;
+    }
+    //插入一些打卡记录
+    $insert_daily="insert ignore into daily_health (student_id,health_state,record_date,record_location,temperature) values ('20301234567',1,'2022-12-15 11:23:00','孵蛋大学',37),('20301234567',1,'2022-12-14 11:23:00','孵蛋大学',37),('20301234567',1,'2022-12-12 11:23:00','孵蛋大学',37),('20301234567',1,'2022-12-11 11:23:00','孵蛋大学',37),('20301234567',1,'2022-12-10 11:23:00','孵蛋大学',37)";
+    if(!$mysqli->query($insert_daily)) {
         echo "<script>alert('数据插入失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;
