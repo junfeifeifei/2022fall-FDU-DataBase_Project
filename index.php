@@ -93,6 +93,18 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/SuperAdmin/SuperAdminAddStudent.php';
     }
+    else if($path == '/superadmin/studentaccess'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminStudentAccess.php';
+    }
+    else if($path == '/superadmin/dailyhealth'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminDailyHealth.php';
+    }
 
 
     else{
