@@ -116,10 +116,11 @@ function initial_mysql(){
     }
     //新建离校申请表
     $createDeparture = "create table if not exists depart_application(
-        application_id int UNIQUE NOT NULL primary key,
+        application_id int primary key auto_increment,
         student_id char(11) NOT NULL,
         reason TEXT DEFAULT NULL,
         destination TEXT NOT NULL,
+        apply_date  DATE NOT NULL,
         departure_date  DATETIME NOT NULL,
         return_date  DATETIME NOT NULL,
         counselor_id char(5) NOT NULL,
@@ -133,27 +134,6 @@ function initial_mysql(){
         foreign    key(manager_id) references teacher(teacher_id)       
 )";
     if(!$mysqli->query($createDeparture)){
-        echo"<script>alert('数据表创建失败！请重新初始化项目');</script>";
-        $mysqli->close();
-        exit;
-    }
-    //新建进校申请表
-    $createAdmission = "create table if not exists admission_application(
-        application_id int UNIQUE NOT NULL primary key,
-        student_id char(11) NOT NULL,
-        reason TEXT DEFAULT NULL,
-        return_date  DATETIME NOT NULL,
-        counselor_id char(5) NOT NULL,
-        manager_id char(5) NOT NULL,
-        counselor_approval int DEFAULT NULL,
-        manager_approval int DEFAULT NULL,
-        manager_reason TEXT DEFAULT NULL,
-        counselor_reason TEXT DEFAULT NULL,
-        foreign    key(student_id) references student(student_id), 
-        foreign    key(counselor_id) references teacher(teacher_id),         
-        foreign    key(manager_id) references teacher(teacher_id)       
-)";
-    if(!$mysqli->query($createAdmission)){
         echo"<script>alert('数据表创建失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;
@@ -173,8 +153,47 @@ function initial_mysql(){
         $mysqli->close();
         exit;
     }
+    //新建进校申请表
+    $createAdmission = "create table if not exists admission_application(
+        application_id int primary key auto_increment,
+        student_id char(11) NOT NULL,
+        reason TEXT DEFAULT NULL,
+        return_date  DATETIME NOT NULL,
+        apply_date  DATE NOT NULL,
+        counselor_id char(5) NOT NULL,
+        manager_id char(5) NOT NULL,
+        counselor_approval int DEFAULT NULL,
+        manager_approval int DEFAULT NULL,
+        manager_reason TEXT DEFAULT NULL,
+        counselor_reason TEXT DEFAULT NULL,
+        daily_health_id_1 int DEFAULT NULL,
+        daily_health_id_2 int DEFAULT NULL,
+        daily_health_id_3 int DEFAULT NULL,
+        daily_health_id_4 int DEFAULT NULL,
+        daily_health_id_5 int DEFAULT NULL,
+        daily_health_id_6 int DEFAULT NULL,
+        daily_health_id_7 int DEFAULT NULL,
+        currentState int NOT NULL,
+        foreign    key(daily_health_id_1) references daily_health(daily_health_id), 
+        foreign    key(daily_health_id_2) references daily_health(daily_health_id), 
+        foreign    key(daily_health_id_3) references daily_health(daily_health_id), 
+        foreign    key(daily_health_id_4) references daily_health(daily_health_id),  
+        foreign    key(daily_health_id_5) references daily_health(daily_health_id), 
+        foreign    key(daily_health_id_6) references daily_health(daily_health_id), 
+        foreign    key(daily_health_id_7) references daily_health(daily_health_id), 
+        foreign    key(student_id) references student(student_id), 
+        foreign    key(counselor_id) references teacher(teacher_id), 
+        foreign    key(manager_id) references teacher(teacher_id)       
+)";
+    if(!$mysqli->query($createAdmission)){
+        echo"<script>alert('数据表创建失败！请重新初始化项目');</script>";
+        $mysqli->close();
+        exit;
+    }
     $mysqli->close();
 }
+
+
 function dataInsert(){
     $mysqli = mysqli_connect("localhost","root","1234","admission");
     if(!$mysqli){
@@ -258,8 +277,8 @@ function dataInsert(){
     }
     //插入超级管理员
     $insert_superadmin="insert ignore into teacher (teacher_id,name,authority,password) values ('00000','root',1,'123456')";
-    if(!$mysqli->query($insert_superadmin)){
-        echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
+    if(!$mysqli->query($insert_superadmin)) {
+        echo "<script>alert('数据插入失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;
     }

@@ -7,9 +7,9 @@ $path=$urlAfter['path'];
 
 //这里是数据库的初始化代码，需要重置数据库的时候，先丢表，再执行下面的代码即可
 //不需重置的时候注释掉就好
-//require './Controllers/initialMysql.php';
-//initial_mysql();
-//dataInsert();
+require './Controllers/initialMysql.php';
+initial_mysql();
+dataInsert();
 
 
 if(!isset($_GET["type"])){//这里面代表的是页面显示部分
@@ -104,6 +104,7 @@ else{//这里开始是功能的判断
         require 'Controllers/Login&outController.php';
         logout();
     }
+    //学生功能
     else if($type == "returnToStudent"){
         echo "<script>window.location.href='/student';</script>";
     }
@@ -113,6 +114,14 @@ else{//这里开始是功能的判断
         }
         else require 'Controllers/dailyhealthController.php';
         dailyhealthapply();
+    }
+    //学生添加入校权限
+    else if($type == "stuapplytoenter"){
+        if(!isset($_SESSION['student_id'])){
+            echo"<script>alert('您无权使用该功能');history.back();</script>";
+        }
+        else require 'Controllers/enterApplyController.php';
+        enterApply();
     }
     //超级管理员功能
     else if($type == "addstudent"){

@@ -6,19 +6,96 @@
     <link rel="stylesheet" type="text/css" href="../../Views/CSS/Student/StudentEnterApply.css">
 </head>
 
-<script type="text/javascript" src="../../Views/JS/Student/StudentEnterApply.js"></script>
+<script type="text/javascript" src="./../Views/JS/Student/StudentEnterApply.js"></script>
+
+<?php
+session_start();
+$mysqli = mysqli_connect("localhost","root","1234","admission");
+if(!$mysqli){
+    echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
+exit;
+}
+$student_id=$_SESSION['student_id'];
+$selectstu="select * from student where student_id = '$student_id'";
+$row=$mysqli->query($selectstu)->fetch_assoc();
+$class_name=$row['class_name'];
+$department_name=$row['department_name'];
+$fudaoyuan_id="select * from class where class_name='$class_name' and department_name='$department_name'";
+$counselor_id=$mysqli->query($fudaoyuan_id)->fetch_assoc()['counselor_id'];
+$counselor_name_sql="select * from teacher where teacher_id ='$counselor_id'";
+$counselor_name=$mysqli->query($counselor_name_sql)->fetch_assoc()['name'];
+$xizhur_id="select * from department where department_name='$department_name'";
+$manager_id=$mysqli->query($xizhur_id)->fetch_assoc()['manager_id'];
+$manager_name_sql="select * from teacher where teacher_id ='$manager_id'";
+$manager_name=$mysqli->query($manager_name_sql)->fetch_assoc()['name'];
+date_default_timezone_set('PRC');
+$currentDate= $showtime = date("Y-m-d");
+$data_1=date("Y-m-d",strtotime("-1 days",strtotime($currentDate)));
+$data_2=date("Y-m-d",strtotime("-2 days",strtotime($currentDate)));
+$data_3=date("Y-m-d",strtotime("-3 days",strtotime($currentDate)));
+$data_4=date("Y-m-d",strtotime("-4 days",strtotime($currentDate)));
+$data_5=date("Y-m-d",strtotime("-5 days",strtotime($currentDate)));
+$data_6=date("Y-m-d",strtotime("-6 days",strtotime($currentDate)));
+$data_7=date("Y-m-d",strtotime("-7 days",strtotime($currentDate)));
+$dateArray=array($data_1,$data_2,$data_3,$data_4,$data_5,$data_6,$data_7);
+?>
 
 <body>
 <div class="form-main">
-    <form class="form" action="?type=returnToStudent" method="post">
+    <form class="form" action="?type=stuapplytoenter" method="post">
         <div class="input-main">
             <div class="header">
                 <h1 class="title">返校申请</h1>
                 <button class="return" onclick="returnToStudentMain()">返回</button>
             </div>
-            <div class="input">原因：<input type="text" style="width: 75%;"></div>
-            <div class="input">返校时间：<input type="text" style="width: 75%"></div>
-            <div class="button"><button type="submit" onclick="submitApply()">提交申请</button></div>
+            <div class="input">学生姓名：<input style="width: 75%;" value="<?php echo $_SESSION['name']; ?>" readonly></div>
+            <div class="input">学号：<input id="student_id" name="student_id" style="width: 75%;" value="<?php echo $_SESSION['student_id']; ?>" readonly></div>
+            <div class="input">返校原因：<input id="reason" name="reason" type="text" style="width: 75%;"></div>
+            <div class="input">返校时间：<input id="return_date" name="return_date" type="datetime-local" style="width: 76%"></div>
+            <div class="input">辅导员姓名：<input  type="text" style="width: 75%;" value="<?php echo $counselor_name; ?>" readonly></div>
+            <div class="input">辅导员工号：<input id="counselor_id" name="counselor_id" type="text" style="width: 75%" value="<?php echo $counselor_id; ?>" readonly></div>
+            <div class="input">院系管理员姓名：<input  type="text" style="width: 75%;" value="<?php echo $manager_name; ?>" readonly></div>
+            <div class="input">院系管理员工号：<input id="manager_id" name="manager_id" type="text" style="width: 75%" value="<?php echo $manager_id; ?>" readonly></div>
+            <div>您过去7天的健康打卡记录：</div>
+            <?php
+            for($i=0;$i<7;$i++){
+                $day=$mysqli->query("select * from daily_health where record_date='$dateArray[$i]' and student_id = '$student_id'");
+                echo "day_";
+                echo $i+1;
+                if(mysqli_num_rows($day)==0){
+                    echo '<input type="text" style="width: 75%;" name="daily_health_id_';
+                    echo $i+1;
+                    echo '" value="NULL" hidden>
+                    <div>时间：';
+                    echo $dateArray[$i];
+                    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未填写</div>';
+                }
+                else{
+                    $row=$day->fetch_assoc();
+                    $this_id=$row['daily_health_id'];
+                    if($row['health_state']==1) $state="正常";
+                    if($row['health_state']==2) $state="阳了个阳";
+                    if($row['health_state']==3) $state="发烧但没阳";
+                    echo '<input type="text" style="width: 75%;" name="daily_health_id_';
+                    echo $i+1;
+                    echo '" value="';
+                    echo $this_id;
+                    echo '" hidden><div>时间：';
+                    echo $dateArray[$i];
+                    echo '&nbsp;&nbsp;地点：';
+                    echo $row['record_location'];
+                    echo '&nbsp;&nbsp;健康状态：';
+                    echo $state;
+                    echo '&nbsp;&nbsp;体温：';
+                    echo $row['temperature'];
+                    echo '</div>';
+                }
+            }
+            ?>
+
+
+            <div class="input">申请填写时间：<input id="apply_date" name="apply_date" type="text" style="width: 75%" value="<?php echo $currentDate; ?>" readonly></div>
+            <div class="button"><button type="submit" onclick="return submitTest()">提交申请</button></div>
         </div>
     </form>
 </div>
