@@ -129,6 +129,7 @@ function initial_mysql(){
         manager_approval int DEFAULT NULL,
         manager_reason TEXT DEFAULT NULL,
         counselor_reason TEXT DEFAULT NULL,
+        currentState int NOT NULL,
         foreign    key(student_id) references student(student_id), 
         foreign    key(counselor_id) references teacher(teacher_id),         
         foreign    key(manager_id) references teacher(teacher_id)       

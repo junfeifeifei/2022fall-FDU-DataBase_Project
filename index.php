@@ -115,7 +115,7 @@ else{//这里开始是功能的判断
         else require 'Controllers/dailyhealthController.php';
         dailyhealthapply();
     }
-    //学生添加入校权限
+    //学生申请入校权限
     else if($type == "stuapplytoenter"){
         if(!isset($_SESSION['student_id'])){
             echo"<script>alert('您无权使用该功能');history.back();</script>";
@@ -123,6 +123,16 @@ else{//这里开始是功能的判断
         else require 'Controllers/enterApplyController.php';
         enterApply();
     }
+    //学生申请离校
+    else if($type == "stuapplytoleave"){
+        if(!isset($_SESSION['student_id'])){
+            echo"<script>alert('您无权使用该功能');history.back();</script>";
+        }
+        else require 'Controllers/leaveApplyController.php';
+        leaveApply();
+    }
+
+
     //超级管理员功能
     else if($type == "addstudent"){
         if(!isset($_SESSION['teacher_id'])){

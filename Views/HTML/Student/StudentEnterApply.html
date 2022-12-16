@@ -46,7 +46,7 @@ $dateArray=array($data_1,$data_2,$data_3,$data_4,$data_5,$data_6,$data_7);
         <div class="input-main">
             <div class="header">
                 <h1 class="title">返校申请</h1>
-                <button class="return" onclick="returnToStudentMain()">返回</button>
+                <button class="return" onclick="history.back()">返回</button>
             </div>
             <div class="input">学生姓名：<input style="width: 75%;" value="<?php echo $_SESSION['name']; ?>" readonly></div>
             <div class="input">学号：<input id="student_id" name="student_id" style="width: 75%;" value="<?php echo $_SESSION['student_id']; ?>" readonly></div>

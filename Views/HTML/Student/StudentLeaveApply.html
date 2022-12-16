@@ -6,21 +6,52 @@
     <link rel="stylesheet" type="text/css" href="../../Views/CSS/Student/StudentLeaveApply.css">
 </head>
 
-<script type="text/javascript" src="../../Views/JS/Student/StudentLeaveApply.js"></script>
+<script type="text/javascript" src="./../Views/JS/Student/StudentLeaveApply.js"></script>
+
+<?php
+session_start();
+$mysqli = mysqli_connect("localhost","root","1234","admission");
+if(!$mysqli){
+    echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
+exit;
+}
+$student_id=$_SESSION['student_id'];
+$selectstu="select * from student where student_id = '$student_id'";
+$row=$mysqli->query($selectstu)->fetch_assoc();
+$class_name=$row['class_name'];
+$department_name=$row['department_name'];
+$fudaoyuan_id="select * from class where class_name='$class_name' and department_name='$department_name'";
+$counselor_id=$mysqli->query($fudaoyuan_id)->fetch_assoc()['counselor_id'];
+$counselor_name_sql="select * from teacher where teacher_id ='$counselor_id'";
+$counselor_name=$mysqli->query($counselor_name_sql)->fetch_assoc()['name'];
+$xizhur_id="select * from department where department_name='$department_name'";
+$manager_id=$mysqli->query($xizhur_id)->fetch_assoc()['manager_id'];
+$manager_name_sql="select * from teacher where teacher_id ='$manager_id'";
+$manager_name=$mysqli->query($manager_name_sql)->fetch_assoc()['name'];
+date_default_timezone_set('PRC');
+$currentDate= $showtime = date("Y-m-d");
+?>
 
 <body>
 <div class="form-main">
-    <form class="form" action="?type=returnToStudent" method="post">
+    <form class="form" action="?type=stuapplytoleave" method="post">
         <div class="input-main">
             <div class="header">
                 <h1 class="title">离校申请</h1>
-                <button class="return" onclick="returnToStudentMain()">返回</button>
+                <button class="return" onclick="history.back()">返回</button>
             </div>
-            <div class="input">原因：<input type="text" style="width: 75%;"></div>
-            <div class="input">目的地：<input type="text" style="width: 75%"></div>
-            <div class="input">离校时间：<input type="text" style="width: 75%"></div>
-            <div class="input">离校时间：<input type="text" style="width: 75%"></div>
-            <div class="button"><button type="submit">提交申请</button></div>
+            <div class="input">学生姓名：<input style="width: 75%;" value="<?php echo $_SESSION['name']; ?>" readonly></div>
+            <div class="input">学号：<input id="student_id" name="student_id" style="width: 75%;" value="<?php echo $_SESSION['student_id']; ?>" readonly></div>
+            <div class="input">离校原因：<input id="reason" name="reason" type="text" style="width: 75%;"></div>
+            <div class="input">目的地：<input id="destination" name="destination" type="text" style="width: 75%;"></div>
+            <div class="input">离校时间：<input id="departure_date" name="departure_date" type="datetime-local" style="width: 76%"></div>
+            <div class="input">预计返校时间：<input id="return_date" name="return_date" type="datetime-local" style="width: 76%"></div>
+            <div class="input">辅导员姓名：<input  type="text" style="width: 75%;" value="<?php echo $counselor_name; ?>" readonly></div>
+            <div class="input">辅导员工号：<input id="counselor_id" name="counselor_id" type="text" style="width: 75%" value="<?php echo $counselor_id; ?>" readonly></div>
+            <div class="input">院系管理员姓名：<input  type="text" style="width: 75%;" value="<?php echo $manager_name; ?>" readonly></div>
+            <div class="input">院系管理员工号：<input id="manager_id" name="manager_id" type="text" style="width: 75%" value="<?php echo $manager_id; ?>" readonly></div>
+            <div class="input">申请填写时间：<input id="apply_date" name="apply_date" type="text" style="width: 75%" value="<?php echo $currentDate; ?>" readonly></div>
+            <div class="button"><button type="submit" onclick="return submitTest()">提交申请</button></div>
         </div>
     </form>
 </div>
