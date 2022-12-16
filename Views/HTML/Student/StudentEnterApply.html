@@ -29,7 +29,7 @@ $manager_id=$mysqli->query($xizhur_id)->fetch_assoc()['manager_id'];
 $manager_name_sql="select * from teacher where teacher_id ='$manager_id'";
 $manager_name=$mysqli->query($manager_name_sql)->fetch_assoc()['name'];
 date_default_timezone_set('PRC');
-$currentDate= $showtime = date("Y-m-d");
+$currentDate= date("Y-m-d");
 $data_1=date("Y-m-d",strtotime("-1 days",strtotime($currentDate)));
 $data_2=date("Y-m-d",strtotime("-2 days",strtotime($currentDate)));
 $data_3=date("Y-m-d",strtotime("-3 days",strtotime($currentDate)));

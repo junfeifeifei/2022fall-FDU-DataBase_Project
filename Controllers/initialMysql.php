@@ -88,7 +88,7 @@ function initial_mysql(){
 
     //新建进出校记录
     $createLog = "create table if not exists log(
-        log_id int UNIQUE NOT NULL primary key,
+        log_id int primary key auto_increment,
         log_time DATETIME NOT NULL,
         student_id char(11) NOT NULL,
         campus_name varchar(50) NOT NULL,
@@ -102,7 +102,7 @@ function initial_mysql(){
     }
     //新建进出校权限表
     $createAccess = "create table if not exists access(
-        student_id char(11) UNIQUE NOT NULL, 
+        student_id char(11) NOT NULL, 
         campus_name varchar(50) NOT NULL,
         state int NOT NULL,
         primary key(student_id,campus_name),
@@ -273,6 +273,20 @@ function dataInsert(){
     ('00010','soft',2,'123456')";
     if(!$mysqli->query($insert_admin)){
         echo"<script>alert('数据插入失败！请重新初始化项目');</script>";
+        $mysqli->close();
+        exit;
+    }
+    //插入学生进校权限
+    $insert_access="insert ignore into access (student_id,campus_name,state) values ('20301234567','邯郸校区',1),
+    ('20301234567','江湾校区',1),
+    ('20301234567','张江校区',1),
+    ('20301234567','枫林校区',0),
+    ('20301234568','邯郸校区',0),
+    ('20301234568','江湾校区',0),
+    ('20301234568','张江校区',0),
+    ('20301234568','枫林校区',0)";
+    if(!$mysqli->query($insert_access)) {
+        echo "<script>alert('数据插入失败！请重新初始化项目');</script>";
         $mysqli->close();
         exit;
     }

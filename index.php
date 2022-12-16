@@ -7,9 +7,9 @@ $path=$urlAfter['path'];
 
 //这里是数据库的初始化代码，需要重置数据库的时候，先丢表，再执行下面的代码即可
 //不需重置的时候注释掉就好
-require './Controllers/initialMysql.php';
-initial_mysql();
-dataInsert();
+//require './Controllers/initialMysql.php';
+//initial_mysql();
+//dataInsert();
 
 
 if(!isset($_GET["type"])){//这里面代表的是页面显示部分
@@ -23,6 +23,12 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Views/HTML/Student/StudentMain.html';
+    }
+    else if($path=="/student/log"){
+        if(!isset($_SESSION['student_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Student/StudentLog.html';
     }
     else if($path=='/student/leaveapply'){
         if(!isset($_SESSION['student_id'])){
@@ -131,8 +137,14 @@ else{//这里开始是功能的判断
         else require 'Controllers/leaveApplyController.php';
         leaveApply();
     }
-
-
+    //学生进校打卡
+    else if($type == "enterCampus"){
+        if(!isset($_SESSION['student_id'])){
+            echo"<script>alert('您无权使用该功能');history.back();</script>";
+        }
+        else require 'Controllers/studentCampusController.php';
+        enterCampusLog();
+    }
     //超级管理员功能
     else if($type == "addstudent"){
         if(!isset($_SESSION['teacher_id'])){
