@@ -55,6 +55,20 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/Tutor/TutorMain.html';
     }
+    else if($path == '/tutor/adminManageLeave'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else {
+            require 'Views/HTML/Tutor/TutorManageLeave.html';
+        }
+    }
+    else if($path == '/tutor/adminManageLeave'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Tutor/TutorMain.html';
+    }
     //院系管理员的页面
     else if($path == '/admin'){
         if(!isset($_SESSION['teacher_id'])){
@@ -163,5 +177,13 @@ else{//这里开始是功能的判断
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Controllers/SuperAdminAddStudent.php';
+    }
+    //辅导员功能
+    else if($type == "leaveapplysearch"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Controllers/leaveApplyController.php';
+        searchleaveApply();
     }
 }
