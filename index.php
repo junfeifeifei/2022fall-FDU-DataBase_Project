@@ -55,12 +55,36 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/Tutor/TutorMain.html';
     }
+    else if($path == '/tutor/studentaccess'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Tutor/TutorStudentAccess.php';
+    }
+    else if($path == '/tutor/dailyhealth'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Tutor/TutorDailyHealth.php';
+    }
     //院系管理员的页面
     else if($path == '/admin'){
         if(!isset($_SESSION['teacher_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Views/HTML/Admin/AdminMain.html';
+    }
+    else if($path == '/admin/studentaccess'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Admin/AdminStudentAccess.php';
+    }
+    else if($path == '/admin/dailyhealth'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/Admin/AdminDailyHealth.php';
     }
     //超级管理员的界面
     else if($path == '/superadmin'){
@@ -104,6 +128,12 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Views/HTML/SuperAdmin/SuperAdminDailyHealth.php';
+    }
+    else if($path == '/superadmin/dataanalyse'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminDataAnalyse.html';
     }
 
 
