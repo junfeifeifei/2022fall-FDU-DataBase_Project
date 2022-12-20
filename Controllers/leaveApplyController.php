@@ -146,7 +146,7 @@ function searchleaveApply(){
         echo '<td border-width="1px">'.$data['apply_date'].'</td>';
         if($flag==2||$flag==3){
             echo '<td><button id="manageNow" ';
-            if($flag==2&&$data['counselor_approval']==2){
+            if($flag==2&&($data['counselor_approval']==2||$data['counselor_approval']==0)){
                 echo "disabled";
             }
             echo ' >进行审批</button></td>';
