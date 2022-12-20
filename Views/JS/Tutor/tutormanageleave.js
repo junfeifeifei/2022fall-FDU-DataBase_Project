@@ -144,3 +144,4 @@ function I3F(){
     let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
     window.location.href=url;
 }
+

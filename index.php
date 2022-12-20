@@ -174,6 +174,14 @@ else{//这里开始是功能的判断
         require 'Controllers/Login&outController.php';
         logout();
     }
+    //老师审批离校
+    if($type == "submitmanageleave"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Controllers/leaveApplyController.php';
+        submitmanageleaveApply();
+    }
     //学生功能
     else if($type == "returnToStudent"){
         echo "<script>window.location.href='/student';</script>";

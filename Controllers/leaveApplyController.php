@@ -119,7 +119,6 @@ function searchleaveApply(){
     $number = $mysqli->query($getResultNums)->fetch_assoc()['total'];
     if($number==0){
         echo '<tr><td colspan="9">对不起，没有搜索到匹配的结果呢:(<br>建议您换一个搜索状态或者是学生再进行搜索</td></tr>';
-        return false;
     }
     require_once './Controllers/dividePageModel.php';
     global $sqlFirst,$pageNav;
@@ -142,10 +141,12 @@ function searchleaveApply(){
         if($data['manager_approval']==1){$temp = "已同意";}
         if($data['manager_approval']==2){$temp = "已拒绝";}
         echo '<td border-width="1px">'.$temp.'</td>';
-        echo '<td border-width="1px">'.$data['counselor_reason'].'</td>';
+        echo '<td border-width="1px">'.$data['manager_reason'].'</td>';
         echo '<td border-width="1px">'.$data['apply_date'].'</td>';
         if($flag==2||$flag==3){
-            echo '<td><button id="manageNow" ';
+            echo '<td><button id="manageNow" onclick="opensubmitLeave(';
+            echo $data['application_id'];
+            echo ')" ';
             if($flag==2&&($data['counselor_approval']==2||$data['counselor_approval']==0||$data['manager_approval']!=0)){
                 echo "disabled";
             }
@@ -160,6 +161,35 @@ function searchleaveApply(){
         echo '</tr>';
     }
     echo '<tr><td colspan="10">'.$pageNav.'</td></tr>';
+}
+
+function submitmanageleaveApply(){
+    session_start();
+    $authority=$_SESSION["authority"];
+    $application_id=$_POST["application_id"];
+    $shenpi=$_POST["shenpi"];
+    $myreason=$_POST["myreason"];
+    if($authority==3){
+        $updateleavestate="update depart_application set counselor_approval = ".$shenpi.", counselor_reason = '".$myreason."' where application_id=".$application_id;
+    }
+    if($authority==2){
+        $updateleavestate="update depart_application set manager_approval = ".$shenpi.", manager_reason = '".$myreason."' where application_id=".$application_id;
+    }
+    //链接数据库
+    $mysqli = mysqli_connect("localhost","root","1234","admission");
+    if(!$mysqli){
+        echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
+        exit;
+    }
+    $result = $mysqli->query($updateleavestate);
+    $mysqli->close();
+    if(!$result){
+        echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
+    }
+    else{
+        echo"<script>alert('审批成功！');history.back()</script>";
+    }
+
 }
 
 

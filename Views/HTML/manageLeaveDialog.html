@@ -1,0 +1,21 @@
+<link rel="stylesheet" type="text/css" href="../../Views/CSS/manageLeaveDialog.css"/>
+<script type="text/javascript" src="./../Views/JS/manageleaveDialog.js"></script>
+    <div id="payBox">
+        <h2>离校审批</h2>
+
+        <form id="payform" action="?type=submitmanageleave" method="post">
+             <span>
+                        <input id="application_id" name="application_id" type="text" hidden>
+                        <input type="radio" id="agree" name="shenpi" value="1"/>
+                        <label for="applydatafirst">同意</label>
+                        <input type="radio" id="disagree" name="shenpi" value="2"/>
+                        <label for="leavedatafirst">拒绝</label>
+                    </span>
+            <input type="text" id="myreason" name="myreason" placeholder="请输入理由">
+            <div id="warnin">&nbsp;</div>
+            <div id="btns">
+                <input id="submit_btn" type="submit" onclick="return leaveTest()" value="提交审批">
+                <div id="calcelBtn" onclick="closesubmitLeave()">取消审批</div>
+            </div>
+        </form>
+    </div>
