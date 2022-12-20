@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>辅导员审批离校</title>
+    <script type="text/javascript" src="./../Views/JS/Tutor/tutormanageleave.js"></script>
+</head>
+
+<body>
+<!-- 导航栏 -->
+<?php
+    session_start();
+            ?>
+<!--搜索框  -->
+<div id="searchpart">
+    <!-- 搜索框 -->
+    <section id="searchBox">
+        <div id="inputBox">
+            <input type="text" placeholder="搜索学生ID" id="searchInput" value="<?php if($_GET['student_id']) echo $_GET['student_id'];?>">
+            <a  id="search-btn" href="#">点击此处搜索</a>
+        </div>
+        <div id="wraning">筛选</div>
+        <div id="radiobox">
+                <span><input type="radio" id="I0" name="state" value="0" <?php if($_GET['state']==0) echo "checked";?>/>
+                    <label >我未审核</label> </span>
+            <span><input type="radio" id="I1"  name="state" value="1" <?php if($_GET['state']==1) echo "checked";?>/>
+                    <label>我已同意</label> </span>
+            <span><input type="radio" id="I2"  name="state" value="2" <?php if($_GET['state']==2) echo "checked";?>/>
+                    <label>我已拒绝</label></span>
+            <span><input type="radio" id="I3"  name="state" value="3" <?php if($_GET['state']==3) echo "checked";?>/>
+                    <label>全部</label></span>
+        </div>
+    </section>
+</div>
+
+
+<div id="seachingresultform">
+    <div id="headinfor">
+        <div id="wraning">排序方式：</div>
+        <div id="showwayradiobox">
+                    <span>
+                        <input type="radio" id="applydatafirst" name="showway" value="1" <?php if($_GET['sortBy']==1) echo "checked";?>/>
+                        <label for="applydatafirst">按照申请先后</label>
+                    </span>
+            <span>
+                        <input type="radio" id="leavedatafirst" name="showway" value="2" <?php if($_GET['sortBy']==2) echo "checked";?>/>
+                        <label for="leavedatafirst">按照离校时间先后</label>
+                    </span>
+        </div>
+    </div>
+    <table border="1">
+        <thead>
+        <tr>
+            <th border-width="1px">学生ID</th>
+            <th  border-width="1px">理由</th>
+            <th border-width="1px">离校时间</th>
+            <th border-width="1px">预计返校时间</th>
+            <th border-width="1px">我的结果</th>
+            <th border-width="1px">我的意见</th>
+            <th border-width="1px">系主任的结果</th>
+            <th border-width="1px">系主任的意见</th>
+            <th border-width="1px">申请日期</th>
+        </tr>
+        </thead>
+        <tbody id="result">
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
