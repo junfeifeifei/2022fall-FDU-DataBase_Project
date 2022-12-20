@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>辅导员审批离校</title>
-    <script type="text/javascript" src="./../Views/JS/Tutor/tutormanageleave.js"></script>
+    <title>辅导员审批进校</title>
+    <script type="text/javascript" src="./../Views/JS/Tutor/tutormanageenter.js"></script>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                     </span>
             <span>
                         <input type="radio" id="leavedatafirst" name="showway" value="2" <?php if($_GET['sortBy']==2) echo "checked";?>/>
-                        <label for="leavedatafirst">按照离校时间先后</label>
+                        <label for="leavedatafirst">按照返校时间先后</label>
                     </span>
         </div>
     </div>
@@ -54,13 +54,13 @@
         <tr>
             <th border-width="1px">学生ID</th>
             <th  border-width="1px">理由</th>
-            <th border-width="1px">离校时间</th>
-            <th border-width="1px">预计返校时间</th>
+            <th border-width="1px">返校时间</th>
             <th border-width="1px">我的结果</th>
             <th border-width="1px">我的意见</th>
             <th border-width="1px">系主任的结果</th>
             <th border-width="1px">系主任的意见</th>
             <th border-width="1px">申请日期</th>
+            <th border-width="1px">7日健康打卡</th>
             <th border-width="1px">操作</th>
         </tr>
         </thead>
@@ -72,7 +72,7 @@
 
 
 <?php
-    require "Views/HTML/manageLeaveDialog.html";
+    require "Views/HTML/manageEnterDialog.html";
 ?>
 </body>
 </html>

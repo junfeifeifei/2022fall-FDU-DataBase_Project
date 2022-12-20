@@ -63,6 +63,14 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
             require 'Views/HTML/Tutor/TutorManageLeave.html';
         }
     }
+    else if($path == '/tutor/adminManageEnter'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else {
+            require 'Views/HTML/Tutor/TutorManageEnter.html';
+        }
+    }
     else if($path == '/tutor/studentaccess'){
         if(!isset($_SESSION['teacher_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
@@ -182,6 +190,14 @@ else{//这里开始是功能的判断
         else require 'Controllers/leaveApplyController.php';
         submitmanageleaveApply();
     }
+    //老师审批进校
+    if($type == "submitmanageenter"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Controllers/enterApplyController.php';
+        submitmanageenterApply();
+    }
     //学生功能
     else if($type == "returnToStudent"){
         echo "<script>window.location.href='/student';</script>";
@@ -231,5 +247,12 @@ else{//这里开始是功能的判断
         }
         else require 'Controllers/leaveApplyController.php';
         searchleaveApply();
+    }
+    else if($type == "enterapplysearch"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Controllers/enterApplyController.php';
+        searchenterApply();
     }
 }
