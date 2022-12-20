@@ -63,12 +63,6 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
             require 'Views/HTML/Tutor/TutorManageLeave.html';
         }
     }
-    else if($path == '/tutor/adminManageLeave'){
-        if(!isset($_SESSION['teacher_id'])){
-            echo"<script>alert('您无权访问该页面');history.back();</script>";
-        }
-        else require 'Views/HTML/Tutor/TutorMain.html';
-    }
     else if($path == '/tutor/studentaccess'){
         if(!isset($_SESSION['teacher_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
@@ -94,6 +88,14 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/Admin/AdminStudentAccess.php';
     }
+    else if($path == '/admin/adminManageLeave'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else {
+            require 'Views/HTML/Admin/adminManageLeave.html';
+        }
+    }
     else if($path == '/admin/dailyhealth'){
         if(!isset($_SESSION['teacher_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
@@ -118,6 +120,12 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Views/HTML/SuperAdmin/SuperAdminStudentInfo.php';
+    }
+    else if($path == '/superadmin/adminManageLeave'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/superAdminManageLeave.html';
     }
     else if($path == '/superadmin/teacherinfo'){
         if(!isset($_SESSION['teacher_id'])){

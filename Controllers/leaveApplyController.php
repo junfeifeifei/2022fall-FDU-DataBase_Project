@@ -45,9 +45,10 @@ function searchleaveApply(){
     if(isset($_SESSION['teacher_id'])){
         $teacher_id=$_SESSION['teacher_id'];
         if($_SESSION['authority']==1){
+            $flag=1;
             $au=" and 0=0 ";
             if($currentState==0){
-                $st=" and (counselor_approval = 0 or manager_approval = 0 ) ";
+                $st=" and (counselor_approval = 0 or (manager_approval = 0 and counselor_approval = 1 )) ";
             }
             if($currentState==1){
                 $st=" and manager_approval = 1 ";
@@ -56,10 +57,11 @@ function searchleaveApply(){
                 $st=" and (counselor_approval = 2 or manager_approval = 2 ) ";
             }
             if($currentState==3){
-                $st=" and ";
+                $st=" and  0=0 ";
             }
         }
         else if($_SESSION['authority']==2){
+            $flag=2;
             $au="and manager_id=".$teacher_id." ";
             if($currentState==0){
                 $st=" and manager_approval = 0 ";
@@ -75,6 +77,7 @@ function searchleaveApply(){
             }
         }
         else if($_SESSION['authority']==3){
+            $flag=3;
             $au="and counselor_id=".$teacher_id." ";
             if($currentState==0){
                 $st=" and counselor_approval = 0 ";
@@ -141,10 +144,19 @@ function searchleaveApply(){
         echo '<td border-width="1px">'.$temp.'</td>';
         echo '<td border-width="1px">'.$data['counselor_reason'].'</td>';
         echo '<td border-width="1px">'.$data['apply_date'].'</td>';
-//        echo '<td class="tdseven" rowspan="2"><button onclick="searchAddToShoppingCart('.$data['productId'].')" class="add">加入购物车</button></td>';
+        if($flag==2||$flag==3){
+            echo '<td><button id="manageNow" ';
+            if($flag==2&&$data['counselor_approval']==2){
+                echo "disabled";
+            }
+            echo ' >进行审批</button></td>';
+        }
+        else{
+            echo '<td><button disabled>无权审批</button></td>';
+        }
         echo '</tr>';
     }
-    echo '<tr><td colspan="9">'.$pageNav.'</td></tr>';
+    echo '<tr><td colspan="10">'.$pageNav.'</td></tr>';
 }
 
 
