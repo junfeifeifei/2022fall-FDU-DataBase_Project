@@ -59,7 +59,8 @@ $dateArray=array($data_1,$data_2,$data_3,$data_4,$data_5,$data_6,$data_7);
             <div>您过去7天的健康打卡记录：</div>
             <?php
             for($i=0;$i<7;$i++){
-                $day=$mysqli->query("select * from daily_health where record_date='$dateArray[$i]' and student_id = '$student_id'");
+                $aaa="select * from daily_health where record_date like '".$dateArray[$i]."%' and student_id = '$student_id'";
+                $day=$mysqli->query($aaa);
                 echo "day_";
                 echo $i+1;
                 if(mysqli_num_rows($day)==0){

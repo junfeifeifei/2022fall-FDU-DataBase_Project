@@ -123,8 +123,16 @@ function searchenterApply(){
     $getCurrentPageData = "select * from admission_application where ".$id_part.$st.$au." order by ".$sortBy." limit $sqlFirst,$dataPerPage";
     $dataThisPage = $mysqli->query($getCurrentPageData);
     while ($data = mysqli_fetch_assoc($dataThisPage)){
-        $daily_health_id_array=array($data['daily_health_id_1'],$data['daily_health_id_2'],$data['daily_health_id_3'],$data['daily_health_id_4'],$data['daily_health_id_5'],$data['daily_health_id_6'],$data['daily_health_id_7']);
+        $arr = array();
+        $arr[0] = $data['daily_health_id_1']==NULL?-1:$data['daily_health_id_1'];
+        $arr[1] = $data['daily_health_id_2']==NULL?-1:$data['daily_health_id_2'];
+        $arr[2] = $data['daily_health_id_3']==NULL?-1:$data['daily_health_id_3'];
+        $arr[3] = $data['daily_health_id_4']==NULL?-1:$data['daily_health_id_4'];
+        $arr[4] = $data['daily_health_id_5']==NULL?-1:$data['daily_health_id_5'];
+        $arr[5] = $data['daily_health_id_6']==NULL?-1:$data['daily_health_id_6'];
+        $arr[6] = $data['daily_health_id_7']==NULL?-1:$data['daily_health_id_7'];
         echo '<tr class="trclass1">';
+        $daily_health_id_array_str = json_encode($arr);
         echo '<td  border-width="1px">'.$data['student_id'].'</td>';
         echo '<td border-width="1px">'.$data['reason'].'</td>';
         echo '<td border-width="1px">'.$data['return_date'].'</td>';
@@ -139,7 +147,7 @@ function searchenterApply(){
         echo '<td border-width="1px">'.$temp.'</td>';
         echo '<td border-width="1px">'.$data['manager_reason'].'</td>';
         echo '<td border-width="1px">'.$data['apply_date'].'</td>';
-        echo '<td border-width="1px"><button id="lookdailyhealth" onclick="lookdailyhealth('.$daily_health_id_array.')">点击查看</button></td>';
+        echo '<td border-width="1px"><button id="lookdailyhealth" onclick="lookdailyhealth('.$daily_health_id_array_str.')">点击查看</button></td>';
         if($flag==2||$flag==3){
             echo '<td><button id="manageNow" onclick="opensubmitEnter(';
             echo $data['application_id'];
