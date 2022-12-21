@@ -124,13 +124,13 @@ function searchenterApply(){
     $dataThisPage = $mysqli->query($getCurrentPageData);
     while ($data = mysqli_fetch_assoc($dataThisPage)){
         $arr = array();
-        $arr[0] = $data['daily_health_id_1']==NULL?-1:$data['daily_health_id_1'];
-        $arr[1] = $data['daily_health_id_2']==NULL?-1:$data['daily_health_id_2'];
-        $arr[2] = $data['daily_health_id_3']==NULL?-1:$data['daily_health_id_3'];
-        $arr[3] = $data['daily_health_id_4']==NULL?-1:$data['daily_health_id_4'];
-        $arr[4] = $data['daily_health_id_5']==NULL?-1:$data['daily_health_id_5'];
-        $arr[5] = $data['daily_health_id_6']==NULL?-1:$data['daily_health_id_6'];
-        $arr[6] = $data['daily_health_id_7']==NULL?-1:$data['daily_health_id_7'];
+        $arr[0] = intval($data['daily_health_id_1']);
+        $arr[1] = intval($data['daily_health_id_2']);
+        $arr[2] = intval($data['daily_health_id_3']);
+        $arr[3] = intval($data['daily_health_id_4']);
+        $arr[4] = intval($data['daily_health_id_5']);
+        $arr[5] = intval($data['daily_health_id_6']);
+        $arr[6] = intval($data['daily_health_id_7']);
         echo '<tr class="trclass1">';
         $daily_health_id_array_str = json_encode($arr);
         echo '<td  border-width="1px">'.$data['student_id'].'</td>';

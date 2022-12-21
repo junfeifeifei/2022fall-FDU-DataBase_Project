@@ -12,3 +12,17 @@
     align-items: center;
     margin-bottom: -350px;
 }
+
+#calcelBtn{
+    text-align: center;
+    outline: none;
+    border: none;
+    background-color: #f56c6ce1;
+    width: 30%;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+}

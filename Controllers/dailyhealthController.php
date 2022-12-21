@@ -23,5 +23,35 @@ function dailyhealthapply(){
     $mysqli->close();
 }
 
-
+function last7day(){
+    //连接数据库
+    $mysqli = mysqli_connect("localhost","root","1234","admission");
+    if(!$mysqli){
+        echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
+        exit;
+    }
+    for($i=1;$i<8;$i++){
+        echo "day".$i.":";
+        $index="m".$i;
+        $id=$_GET[$index];
+        if($id==0){
+            echo "当天无健康打卡！<br>";
+            continue;
+        }
+        $selectdaily="select * from daily_health where daily_health_id = ".$id;
+        $row=$mysqli->query($selectdaily)->fetch_assoc();
+        echo "打卡时间：";
+        echo $row["record_date"];
+        echo " 打卡地点：";
+        echo $row["record_location"];
+        echo " 体温：";
+        echo $row["temperature"];
+        echo "°C 健康状态：";
+        if($row["health_state"]==1) echo "正常";
+        if($row["health_state"]==2) echo "阳性";
+        if($row["health_state"]==3) echo "发烧";
+        echo "<br>";
+    }
+    $mysqli->close();
+}
 
