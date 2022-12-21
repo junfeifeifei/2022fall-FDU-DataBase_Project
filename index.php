@@ -256,6 +256,14 @@ else{//这里开始是功能的判断
         else require 'Controllers/studentCampusController.php';
         enterCampusLog();
     }
+    //学生进校打卡
+    else if($type == "leaveCampus"){
+        if(!isset($_SESSION['student_id'])){
+            echo"<script>alert('您无权使用该功能');history.back();</script>";
+        }
+        else require 'Controllers/studentCampusController.php';
+        leaveCampusLog();
+    }
     //超级管理员功能
     else if($type == "addstudent"){
         if(!isset($_SESSION['teacher_id'])){
