@@ -7,9 +7,9 @@ $path=$urlAfter['path'];
 
 //这里是数据库的初始化代码，需要重置数据库的时候，先丢表，再执行下面的代码即可
 //不需重置的时候注释掉就好
-require './Controllers/initialMysql.php';
-initial_mysql();
-dataInsert();
+//require './Controllers/initialMysql.php';
+//initial_mysql();
+//dataInsert();
 
 
 if(!isset($_GET["type"])){//这里面代表的是页面显示部分
