@@ -94,6 +94,7 @@ function initial_mysql(){
         log_enter_campus_name varchar(50) NOT NULL,
         log_leave_time DATETIME DEFAULT NULL,
         log_leave_campus_name varchar(50) DEFAULT NULL,
+        time int DEFAULT NULL,
         foreign    key(student_id) references student(student_id),        
         foreign    key(log_enter_campus_name) references campus(campus_name),
         foreign    key(log_leave_campus_name) references campus(campus_name) 
@@ -194,6 +195,13 @@ function initial_mysql(){
         $mysqli->close();
         exit;
     }
+//    //插入触发器
+//    $timecal="CREATE TRIGGER cal_time AFTER update ON log FOR EACH ROW set new.time = (UNIX_TIMESTAMP(log_enter_time)-UNIX_TIMESTAMP(log_leave_time))";
+//    if(!$mysqli->query($timecal)){
+//        echo"<script>alert('触发器插入失败！请重新初始化项目');</script>";
+//        $mysqli->close();
+//        exit;
+//    }
     $mysqli->close();
 }
 

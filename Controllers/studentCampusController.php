@@ -81,7 +81,10 @@ function leaveCampusLog(){
         $row22=$ret1->fetch_assoc();
         date_default_timezone_set('PRC');
         $currentDate= date("Y-m-d H:i:s");
-        $logenter="update log set log_leave_time='$currentDate', log_leave_campus_name='$campus_name' where log_id= ".$row22['log_id'];
+        $cr=strtotime($currentDate);
+        $la=strtotime($row22['log_enter_time']);
+        $de=$cr-$la;
+        $logenter="update log set log_leave_time='$currentDate', log_leave_campus_name='$campus_name', time = '$de' where log_id= ".$row22['log_id'];
         if(!$mysqli->query($logenter)){
             echo"<script>alert('离校失败！请重试！');history.back();</script>";
         }
