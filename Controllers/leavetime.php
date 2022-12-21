@@ -42,7 +42,7 @@ function leavetime(){
         $late_time = $ret->fetch_assoc()['log_enter_time'];
         $late_time=strtotime($currentDate)-strtotime($late_time);
     }
-    $total = $late_time+$early_time+$total_sure;
+    $total = $late_time+$early_time+$total_sure;//在校总时长
     echo "该学生过去一年总共出校时长：";
     echo time2string(31536000-$total);
     $mysqli->close();
