@@ -26,6 +26,7 @@ function searchFunction(){
     let state;
     let sortBy;
     let content = document.getElementById("searchInput").value;
+    let days= document.getElementById("searchdays").value;
     if(document.getElementById("I0").checked){
         state='0';
     }
@@ -45,7 +46,7 @@ function searchFunction(){
         sortBy='2';
     }
     const url0 = window.document.location.pathname;
-    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
+    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content+"&days="+days;
     window.location.href=url;
 }
 function applydatafirst(){
@@ -65,13 +66,14 @@ function applydatafirst(){
         state='3';
     }
     const url0 = window.document.location.pathname;
-    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
+    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content+"&days="+days;
     window.location.href=url;
 }
 function leavedatafirst(){
     let searchBy;
     let sortBy = '2';
     let content = document.getElementById("searchInput").value;
+    let days= document.getElementById("searchdays").value;
     if(document.getElementById("I0").checked){
         state='0';
     }
@@ -85,13 +87,14 @@ function leavedatafirst(){
         state='3';
     }
     const url0 = window.document.location.pathname;
-    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
+    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content+"&days="+days;
     window.location.href=url;
 }
 function I0F(){
     let sortBy;
     let state = '0';
     let content = document.getElementById("searchInput").value;
+    let days= document.getElementById("searchdays").value;
     if(document.getElementById("applydatafirst").checked){
         sortBy='1';
     }
@@ -99,13 +102,14 @@ function I0F(){
         sortBy='2';
     }
     const url0 = window.document.location.pathname;
-    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
+    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content+"&days="+days;
     window.location.href=url;
 }
 function I1F(){
     let sortBy;
     let state = '1';
     let content = document.getElementById("searchInput").value;
+    let days= document.getElementById("searchdays").value;
     if(document.getElementById("applydatafirst").checked){
         sortBy='1';
     }
@@ -113,13 +117,14 @@ function I1F(){
         sortBy='2';
     }
     const url0 = window.document.location.pathname;
-    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
+    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content+"&days="+days;
     window.location.href=url;
 }
 function I2F(){
     let sortBy;
     let state = '2';
     let content = document.getElementById("searchInput").value;
+    let days= document.getElementById("searchdays").value;
     if(document.getElementById("applydatafirst").checked){
         sortBy='1';
     }
@@ -127,13 +132,14 @@ function I2F(){
         sortBy='2';
     }
     const url0 = window.document.location.pathname;
-    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
+    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content+"&days="+days;
     window.location.href=url;
 }
 function I3F(){
     let sortBy;
     let state = '3';
     let content = document.getElementById("searchInput").value;
+    let days= document.getElementById("searchdays").value;
     if(document.getElementById("applydatafirst").checked){
         sortBy='1';
     }
@@ -141,6 +147,6 @@ function I3F(){
         sortBy='2';
     }
     const url0 = window.document.location.pathname;
-    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content;
+    let url = url0+"?state="+state+"&sortBy="+sortBy+"&student_id="+content+"&days="+days;
     window.location.href=url;
 }
