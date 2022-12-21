@@ -131,7 +131,6 @@ function searchleaveApply(){
         exit;
     }
     $getResultNums = "select count(1) as total from depart_application where".$id_part.$st.$au.$date_limit;
-    echo $getResultNums;
     $number = $mysqli->query($getResultNums)->fetch_assoc()['total'];
     if($number==0){
         echo '<tr><td colspan="9">对不起，没有搜索到匹配的结果呢:(<br>建议您换一个搜索状态或者是学生再进行搜索</td></tr>';

@@ -38,6 +38,21 @@ function enterApply(){
 
 function searchenterApply(){
     session_start();
+    if(!isset($_GET['days'])){
+        $date_limit=" ";
+    }
+    else {
+        $days=$_GET['days'];
+        if($days==NULL){
+            $date_limit=" ";
+        }
+        else{
+            date_default_timezone_set('PRC');
+            $currentDate= date("Y-m-d");
+            $data_start=date("Y-m-d",strtotime("-".$days." days",strtotime($currentDate)));
+            $date_limit=" and apply_date >=date('".$data_start."') ";
+        }
+    }
     $currentState = $_GET['state'];
     if(isset($_SESSION['teacher_id'])){
         $teacher_id=$_SESSION['teacher_id'];
@@ -111,16 +126,16 @@ function searchenterApply(){
         echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
         exit;
     }
-    $getResultNums = "select count(1) as total from admission_application where".$id_part.$st.$au;
+    $getResultNums = "select count(1) as total from admission_application where".$id_part.$st.$au.$date_limit;
     $number = $mysqli->query($getResultNums)->fetch_assoc()['total'];
     if($number==0){
         echo '<tr><td colspan="10">对不起，没有搜索到匹配的结果呢:(<br>建议您换一个搜索状态或者是学生再进行搜索</td></tr>';
     }
     require_once './Controllers/dividePageModel2.php';
     global $sqlFirst,$pageNav;
-    $dataPerPage = 1;
+    $dataPerPage = 3;
     pageDivide($number,$dataPerPage);
-    $getCurrentPageData = "select * from admission_application where ".$id_part.$st.$au." order by ".$sortBy." limit $sqlFirst,$dataPerPage";
+    $getCurrentPageData = "select * from admission_application where ".$id_part.$st.$au.$date_limit." order by ".$sortBy." limit $sqlFirst,$dataPerPage";
     $dataThisPage = $mysqli->query($getCurrentPageData);
     while ($data = mysqli_fetch_assoc($dataThisPage)){
         $arr = array();
