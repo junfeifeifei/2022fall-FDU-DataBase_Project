@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>平均离校时间最长</title>
+    <script type="text/javascript" src="./../Views/JS/SuperAdmin/leavetimemax.js"></script>
+</head>
+
+<body>
+<!-- 导航栏 -->
+<?php
+    session_start();
+            ?>
+
+<!--搜索框  -->
+<div id="searchpart">
+    <!-- 搜索框 -->
+    <section id="searchBox">
+        <div id="wraning">筛选条件：</div>
+        <div id="inputBox">
+            <input type="number" placeholder="前n个学生" id="searchnumber" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')">
+
+        </div>
+
+        <label for="depart">院系选择</label>
+        <select name="downlist" id="depart">
+        </select>
+        <label for="class">班级选择</label>
+        <select name="downlist" id="class" disabled>
+        </select>
+        <a  id="search_btn" href="#">点击此处搜索</a>
+    </section>
+</div>
+
+
+<div id="seachingresultform">
+<div>只显示有进出校打卡记录的同学：</div>
+    <table border="1">
+        <thead>
+        <tr>
+            <th border-width="1px">学生ID</th>
+            <th  border-width="1px">学生姓名</th>
+            <th border-width="1px">平均出校时间</th>
+        </tr>
+        </thead>
+        <tbody id="maxresult">
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

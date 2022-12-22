@@ -204,6 +204,12 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/SuperAdmin/studentLastNDayNoLeave.html';
     }
+    else if($path == '/superadmin/leavetimemax'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/leavetimemax.html';
+    }
 
     else{
         echo "<script>alert('您访问的页面不存在!');history.back();</script>";
@@ -294,6 +300,13 @@ else{//这里开始是功能的判断
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else require 'Controllers/SuperAdminAddStudent.php';
+    }
+    else if($type == "leavetimemax"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Controllers/leavetime.php';
+        leavetimemax();
     }
     else if($type == "StuOS"){
         if(!isset($_SESSION['teacher_id'])){
