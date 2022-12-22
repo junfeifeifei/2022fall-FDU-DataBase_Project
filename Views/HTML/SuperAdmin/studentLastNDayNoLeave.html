@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>入校申请最多</title>
-    <script type="text/javascript" src="./../Views/JS/SuperAdmin/superadminmanageentermax.js"></script>
+    <title>过去N天都在校</title>
+    <script type="text/javascript" src="./../Views/JS/SuperAdmin/lastndaynoleave.js"></script>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
     <section id="searchBox">
         <div id="wraning">筛选条件：</div>
         <div id="inputBox">
-            <input type="number" placeholder="前n个学生" id="searchnumber" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')">
+            <input type="days" placeholder="过去n天" id="searchnumber" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')">
 
         </div>
 
@@ -40,10 +40,9 @@
         <tr>
             <th border-width="1px">学生ID</th>
             <th  border-width="1px">学生姓名</th>
-            <th border-width="1px">申请次数</th>
         </tr>
         </thead>
-        <tbody id="maxresult">
+        <tbody id="result">
         </tbody>
     </table>
 </div>
