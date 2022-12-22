@@ -22,14 +22,13 @@ function leaveApply(){
     $counselor_id = $_POST["counselor_id"];
     $manager_id = $_POST["manager_id"];
     $apply_date = $_POST['apply_date'];
-    $currentState = 1;
     //连接数据库
     $mysqli = mysqli_connect("localhost","root","1234","admission");
     if(!$mysqli){
         echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
         exit;
     }
-    $applyenter="insert into depart_application (student_id,reason,destination,departure_date,return_date,counselor_id,manager_id,apply_date,currentState) values ('$student_id','$reason','$destination','$departure_date','$return_date','$counselor_id','$manager_id','$apply_date','$currentState')";
+    $applyenter="insert into depart_application (student_id,reason,destination,departure_date,return_date,counselor_id,manager_id,apply_date) values ('$student_id','$reason','$destination','$departure_date','$return_date','$counselor_id','$manager_id','$apply_date')";
     if(!$mysqli->query($applyenter)){
         echo"<script>alert('申请失败！请重新填报！');history.back();</script>";
     }

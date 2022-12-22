@@ -19,14 +19,13 @@ function enterApply(){
     $daily_health_id_6 = $_POST["daily_health_id_6"];
     $daily_health_id_7 = $_POST["daily_health_id_7"];
     $apply_date = $_POST['apply_date'];
-    $currentState = 1;
     //连接数据库
     $mysqli = mysqli_connect("localhost","root","1234","admission");
     if(!$mysqli){
         echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
         exit;
     }
-    $applyenter="insert into admission_application (student_id,reason,return_date,counselor_id,manager_id,daily_health_id_1,daily_health_id_2,daily_health_id_3,daily_health_id_4,daily_health_id_5,daily_health_id_6,daily_health_id_7,apply_date,currentState,counselor_approval,manager_approval) values ('$student_id','$reason','$return_date','$counselor_id','$manager_id',$daily_health_id_1,$daily_health_id_2,$daily_health_id_3,$daily_health_id_4,$daily_health_id_5,$daily_health_id_6,$daily_health_id_7,'$apply_date','$currentState',0,0)";
+    $applyenter="insert into admission_application (student_id,reason,return_date,counselor_id,manager_id,daily_health_id_1,daily_health_id_2,daily_health_id_3,daily_health_id_4,daily_health_id_5,daily_health_id_6,daily_health_id_7,apply_date,counselor_approval,manager_approval) values ('$student_id','$reason','$return_date','$counselor_id','$manager_id',$daily_health_id_1,$daily_health_id_2,$daily_health_id_3,$daily_health_id_4,$daily_health_id_5,$daily_health_id_6,$daily_health_id_7,'$apply_date',0,0)";
     if(!$mysqli->query($applyenter)){
         echo"<script>alert('申请失败！请重新填报！');history.back();</script>";
     }
@@ -208,4 +207,46 @@ function submitmanageenterApply(){
     else{
         echo"<script>alert('审批成功！');history.back()</script>";
     }
+}
+
+function findMax(){
+    $depart=$_GET['depart'];
+    $class=$_GET['class'];
+    $number=$_GET['number'];
+    if($depart!='NULL'){
+        $ad=" and student.department_name='".$depart."' ";
+        if($class!='NULL'&&$class!=NULL){
+            $ad=$ad."and student.class_name='".$class."' ";
+        }
+    }
+    else{
+        $ad=" ";
+    }
+    if($number!='NULL'&&$number!=NULL){
+        $limt=" limit 0,".$number." ";
+    }
+    else{
+        $limt=" ";
+    }
+    $get_max="select admission_application.student_id,name,count(1) as total from admission_application inner join student where admission_application.student_id=student.student_id ".$ad." group by student_id order by total DESC".$limt;
+    //链接数据库
+    $mysqli = mysqli_connect("localhost","root","1234","admission");
+    if(!$mysqli){
+        echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
+        exit;
+    }
+    $maxALL = $mysqli->query($get_max);
+    if(mysqli_num_rows($maxALL)!=0){
+        while ($data = mysqli_fetch_assoc($maxALL)){
+            echo "<tr>";
+            echo '<td border-width="1px">'.$data['student_id'].'</td>';
+            echo '<td border-width="1px">'.$data['name'].'</td>';
+            echo '<td border-width="1px">'.$data['total'].'</td>';
+            echo '</tr>';
+        }
+    }
+    else{
+        echo "<tr><td colspan='3' border-width='1px'>没有找到符合条件的结果</td></tr>";
+    }
+    $mysqli->close();
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超管审批进校</title>
+    <script type="text/javascript" src="./../Views/JS/SuperAdmin/superadminmanageentermax.js"></script>
+</head>
+
+<body>
+<!-- 导航栏 -->
+<?php
+    session_start();
+            ?>
+
+<!--搜索框  -->
+<div id="searchpart">
+    <!-- 搜索框 -->
+    <section id="searchBox">
+        <div id="wraning">筛选条件：</div>
+        <div id="inputBox">
+            <input type="number" placeholder="前n个学生" id="searchnumber" value="<?php if($_GET['days']) echo $_GET['days'];?>" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')">
+
+        </div>
+
+        <label for="depart">院系选择</label>
+        <select name="downlist" id="depart">
+        </select>
+        <label for="class">班级选择</label>
+        <select name="downlist" id="class" disabled>
+        </select>
+        <a  id="search_btn" href="#">点击此处搜索</a>
+    </section>
+</div>
+
+
+<div id="seachingresultform">
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th border-width="1px">学生ID</th>
+            <th  border-width="1px">学生姓名</th>
+            <th border-width="1px">申请次数</th>
+        </tr>
+        </thead>
+        <tbody id="maxresult">
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

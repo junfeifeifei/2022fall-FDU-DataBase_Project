@@ -17,6 +17,7 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
     if($path=='/'){
         require 'Views/HTML/Login.html';
     }
+
     //学生的页面
     else if($path=="/student"){
         if(!isset($_SESSION['student_id'])){
@@ -179,6 +180,12 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/SuperAdmin/SuperAdminDataAnalyse.html';
     }
+    else if($path == '/superadmin/admissionapplymax'){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/SuperAdminApplyEnterMax.html';
+    }
     else if($path == '/superadmin/studentoutofschool'){
         if(!isset($_SESSION['teacher_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
@@ -291,13 +298,24 @@ else{//这里开始是功能的判断
             findstu();
         }
     }
-    else if($type == "StuOS"){
+    else if($type == "searchapplyentermax"){
         if(!isset($_SESSION['teacher_id'])){
             echo"<script>alert('您无权访问该页面');history.back();</script>";
         }
         else{
-            require 'Controllers/StudentOutSchool.php';
-            findstu();
+            if($_GET['target']=="depart"){
+                require 'Controllers/departClass.php';
+                findDepart();
+            }
+            if($_GET['target']=="class"){
+                require 'Controllers/departClass.php';
+                findClass();
+            }
+            if($_GET['target']=="stu"){
+                require 'Controllers/enterApplyController.php';
+                findMax();
+            }
+
         }
     }
     //辅导员功能
