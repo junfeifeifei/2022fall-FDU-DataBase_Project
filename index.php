@@ -210,6 +210,30 @@ if(!isset($_GET["type"])){//这里面代表的是页面显示部分
         }
         else require 'Views/HTML/SuperAdmin/leavetimemax.html';
     }
+    else if($path == "/superadmin/leavewithoutapply"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/LeaveWithoutApply.php';
+    }
+    else if($path == "/superadmin/applybutnotleave"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/ApplyButNotLeave.php';
+    }
+    else if($path == "/superadmin/havesamedailyhealth"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/HaveSameDailyHealth.php';
+    }
+    else if($path == "/superadmin/departmostenterlog"){
+        if(!isset($_SESSION['teacher_id'])){
+            echo"<script>alert('您无权访问该页面');history.back();</script>";
+        }
+        else require 'Views/HTML/SuperAdmin/DepartMostEnterLog.php';
+    }
 
     else{
         echo "<script>alert('您访问的页面不存在!');history.back();</script>";
