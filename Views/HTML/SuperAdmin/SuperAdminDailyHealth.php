@@ -53,6 +53,7 @@ if(isset($_POST["dailyhealth-student_id"])&&isset($_POST["dailyhealth-count"])){
                 }
             }
         }
+        echo "<div>该学生过去".$count."天内有记录的打卡如下：</div>";
         //validDate代表的是有效的数据，也就是天数在想要的天数内的数据
         $dateLen = count($validDate);
         for($i = 0;$i<$dateLen;$i++){
