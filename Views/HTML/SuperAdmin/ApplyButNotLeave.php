@@ -37,7 +37,7 @@ for($i = 0;$i<$length;$i++){
         $rows = mysqli_fetch_assoc($studentLog);
         $a = $rows['time'];
     }
-    if(is_null($a) && $num2 == 1){
+    if(is_null($a) && $num2 >= 1){
         echo "<div>$allApplyId[$i]</div>";
     }
 }
