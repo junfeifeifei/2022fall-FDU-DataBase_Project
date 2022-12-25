@@ -4,8 +4,41 @@
     <meta charset="UTF-8">
     <title>已申请但未离校</title>
 </head>
+
+<style>
+    table {
+        border-right: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+        text-align: center;
+        margin:auto;
+    }
+
+    table tr {
+        border-left: 1px solid #000000;
+        border-top: 1px solid #000000;
+    }
+
+    table td {
+        border-left: 1px solid #000000;
+        border-top: 1px solid #000000;
+    }
+</style>
 <body>
 <div>未提交申请但是离校的学生id如下：</div>
+<table style="border: 1px solid">
+    <tr>
+        <td>student_id</td>
+        <td>name</td>
+        <td>phone_number</td>
+        <td>email</td>
+        <td>dormitory</td>
+        <td>living_address</td>
+        <td>idcard_type</td>
+        <td>idnumber</td>
+        <td>belong_campus_name</td>
+        <td>class_name</td>
+        <td>department_name</td>
+    </tr>
 <?php
 $mysqli = mysqli_connect("localhost","root","1234","admission");
 $getAllApplyStudent = "select distinct student_id from log";
@@ -33,15 +66,54 @@ for($i = 0;$i<$length;$i++){
     $getStudentLog = "select * from log where  log_enter_time='$maxEnter' and student_id = '$allApplyId[$i]'";
     $studentLog = $mysqli->query($getStudentLog);
     $num3 = mysqli_num_rows($studentLog);
+    //最新一条离校记录
     for($k=0;$k<$num3;$k++){
         $rows = mysqli_fetch_assoc($studentLog);
-        $a = $rows['time'];
+        $a = $rows['log_leave_time'];
     }
-    if($a && $num2 == 0){
-        echo "<div>$allApplyId[$i]</div>";
+    $leaveDate = strtotime($a);
+    $nowDate = strtotime(date('Y-m-d H:i:s'));
+    $diff = abs($nowDate - $leaveDate);
+    if(!is_null($a)&&$diff>3600*24 && $num2 == 0){
+//        echo "<div>$allApplyId[$i]</div>";
+        $findStudent = "select * from student where student_id = '$allApplyId[$i]'";
+        $getStudent = $mysqli->query($findStudent);
+        $num4 = mysqli_num_rows($getStudent);
+        for($m = 0 ;$m<$num4;$m++){
+            $rowss = mysqli_fetch_assoc($getStudent);
+            $id = $rowss['student_id'];
+            $name = $rowss['name'];
+            $phone_number = $rowss['phone_number'];
+            $dormitory = $rowss['dormitory'];
+            $email = $rowss['email'];
+            $living_address = $rowss['living_address'];
+            $idcard_type = $rowss['idcard_type'];
+            $idnumber = $rowss['idnumber'];
+            $belong_campus_name = $rowss['belong_campus_name'];
+            $class_name = $rowss['class_name'];
+            $department_name = $rowss['department_name'];
+            echo
+            "<div>
+            <tr>
+                <td>$id</td>
+                <td>$name</td>
+                <td>$phone_number</td>
+                <td>$email</td>
+                <td>$dormitory</td>
+                <td>$living_address</td>
+                <td>$idcard_type</td>
+                <td>$idnumber</td>
+                <td>$belong_campus_name</td>
+                <td>$class_name</td>
+                <td>$department_name</td>
+            </tr>
+        </div>";
+        }
     }
+
 }
 
 ?>
+</table>
 </body>
 </html>
