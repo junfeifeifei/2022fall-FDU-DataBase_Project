@@ -4,9 +4,44 @@
     <meta charset="UTF-8">
     <title>已申请但未离校</title>
 </head>
+
+<style>
+    table {
+        border-right: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+        text-align: center;
+        margin:auto;
+    }
+
+    table tr {
+        border-left: 1px solid #000000;
+        border-top: 1px solid #000000;
+    }
+
+    table td {
+        border-left: 1px solid #000000;
+        border-top: 1px solid #000000;
+    }
+</style>
+
 <body>
-<div>已提交离校申请但是尚未离校的学生id如下：</div>
+<div>已提交离校申请但是尚未离校的学生信息如下：</div>
+<table style="border: 1px solid">
+    <tr>
+        <td>student_id</td>
+        <td>name</td>
+        <td>phone_number</td>
+        <td>email</td>
+        <td>dormitory</td>
+        <td>living_address</td>
+        <td>idcard_type</td>
+        <td>idnumber</td>
+        <td>belong_campus_name</td>
+        <td>class_name</td>
+        <td>department_name</td>
+    </tr>
 <?php
+$cou = 0;
 $mysqli = mysqli_connect("localhost","root","1234","admission");
 $getAllApplyStudent = "select distinct student_id from log";
 $allApplyStudent = $mysqli->query($getAllApplyStudent);
@@ -19,11 +54,11 @@ for($i=0;$i<$rownum;$i++){
 }
 $length = count($allApplyId);
 $abc = array();
-for($i = 0;$i<$length;$i++){
+for($i = 0;$i<$length;$i++) {
     $getStudentApply = "select max(log_enter_time) as max from log where student_id = '$allApplyId[$i]' ";
     $getMaxEnter = $mysqli->query($getStudentApply);
     $num = mysqli_num_rows($getMaxEnter);
-    for($j=0;$j<$num;$j++){
+    for ($j = 0; $j < $num; $j++) {
         $rows = mysqli_fetch_assoc($getMaxEnter);
         $maxEnter = $rows['max'];
     }
@@ -33,15 +68,49 @@ for($i = 0;$i<$length;$i++){
     $getStudentLog = "select * from log where  log_enter_time='$maxEnter' and student_id = '$allApplyId[$i]'";
     $studentLog = $mysqli->query($getStudentLog);
     $num3 = mysqli_num_rows($studentLog);
-    for($k=0;$k<$num3;$k++){
+    for ($k = 0; $k < $num3; $k++) {
         $rows = mysqli_fetch_assoc($studentLog);
         $a = $rows['time'];
     }
-    if(is_null($a) && $num2 >= 1){
-        echo "<div>$allApplyId[$i]</div>";
+    if (is_null($a) && $num2 >= 1) {
+        $findStudent = "select * from student where student_id = '$allApplyId[$i]'";
+        $getStudent = $mysqli->query($findStudent);
+        $num4 = mysqli_num_rows($getStudent);
+        for ($m = 0; $m < $num4; $m++) {
+            $rowss = mysqli_fetch_assoc($getStudent);
+            $id = $rowss['student_id'];
+            $name = $rowss['name'];
+            $phone_number = $rowss['phone_number'];
+            $dormitory = $rowss['dormitory'];
+            $email = $rowss['email'];
+            $living_address = $rowss['living_address'];
+            $idcard_type = $rowss['idcard_type'];
+            $idnumber = $rowss['idnumber'];
+            $belong_campus_name = $rowss['belong_campus_name'];
+            $class_name = $rowss['class_name'];
+            $department_name = $rowss['department_name'];
+            echo
+            "<div>
+            <tr>
+                <td>$id</td>
+                <td>$name</td>
+                <td>$phone_number</td>
+                <td>$email</td>
+                <td>$dormitory</td>
+                <td>$living_address</td>
+                <td>$idcard_type</td>
+                <td>$idnumber</td>
+                <td>$belong_campus_name</td>
+                <td>$class_name</td>
+                <td>$department_name</td>
+            </tr>
+        </div>";
+            $cou ++;
+        }
     }
 }
-
+echo "共$cou 个学生";
 ?>
+</table>
 </body>
 </html>

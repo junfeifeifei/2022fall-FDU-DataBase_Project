@@ -24,7 +24,7 @@
     }
 </style>
 <body>
-<div>未提交申请但是离校的学生id如下：</div>
+<div>未提交申请但是离校的学生信息如下：</div>
 <table style="border: 1px solid">
     <tr>
         <td>student_id</td>
@@ -40,6 +40,7 @@
         <td>department_name</td>
     </tr>
 <?php
+$cou = 0;
 $mysqli = mysqli_connect("localhost","root","1234","admission");
 $getAllApplyStudent = "select distinct student_id from log";
 $allApplyStudent = $mysqli->query($getAllApplyStudent);
@@ -108,11 +109,11 @@ for($i = 0;$i<$length;$i++){
                 <td>$department_name</td>
             </tr>
         </div>";
+            $cou++;
         }
     }
-
 }
-
+echo "共$cou 个学生";
 ?>
 </table>
 </body>

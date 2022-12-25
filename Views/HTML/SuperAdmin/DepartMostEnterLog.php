@@ -63,6 +63,12 @@ for($i=0;$i<$departnum;$i++){
 
     echo "<div>$depart_name </div>
           <div>邯郸共$handan 条;张江共$zhangjiang 条;江湾共$jiangwan 条;枫林共$fenglin 条;</div>";
+    $a = max($handan,$zhangjiang,$jiangwan,$fenglin);
+    if($a == $handan) echo "最多的为邯郸校区";
+    if($a == $zhangjiang) echo "最多的为张江校区";
+    if($a == $jiangwan) echo "最多的为江湾校区";
+    if($a == $fenglin) echo "最多的为枫林校区";
+    echo "<br>";
 }
 ?>
 </body>
