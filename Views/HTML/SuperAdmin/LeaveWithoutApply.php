@@ -24,7 +24,7 @@
     }
 </style>
 <body>
-<div>未提交申请但是离校的学生信息如下：</div>
+<div>未提交申请但是离校超过24h的学生信息如下：</div>
 <table style="border: 1px solid">
     <tr>
         <td>student_id</td>
