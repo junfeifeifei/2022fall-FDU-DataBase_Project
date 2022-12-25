@@ -74,7 +74,7 @@ function findstu(){
         $counselor_id = $mysqli->query($getId)->fetch_assoc()['counselor_id'];
         $getId2="select manager_id from department where department_name = '".$data['department_name']."'";
         $manager_id = $mysqli->query($getId2)->fetch_assoc()['manager_id'];
-        $getId3="select MAX(log_leave_time) as ld from log where student_id = ".$data['student_id'];
+        $getId3="select case when MAX(log_leave_time) is null then '该学生没有进出校记录' else MAX(log_leave_time) end as ld from log where student_id = ".$data['student_id'];
         $leave_date = $mysqli->query($getId3)->fetch_assoc()['ld'];
         echo '<tr>';
         echo '<td  border-width="1px">'.$data['student_id'].'</td>';
