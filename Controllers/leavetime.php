@@ -20,22 +20,23 @@ function leavetime(){
     $currentDate=$currentDate." 00:00:00";
     $yearAgoDate= date("Y-m-d", strtotime("-1 year"));
     $yearAgoDate=$yearAgoDate." 00:00:00";
+    echo "自".$yearAgoDate."到".$currentDate."，";
     //连接数据库
     $mysqli = mysqli_connect("localhost","root","1234","admission");
     if(!$mysqli){
         echo"<script>alert('数据库访问失败！请重新尝试！');history.back()</script>";
         exit;
     }
-    $getsuretime="select sum(time) as total_sure from log where log_enter_time>='".$yearAgoDate."' and log_leave_time <='".$currentDate."'";
+    $getsuretime="select sum(time) as total_sure from log where log_enter_time>='".$yearAgoDate."' and log_leave_time <='".$currentDate."' and student_id= '".$student_id."'";
     $total_sure = $mysqli->query($getsuretime)->fetch_assoc()['total_sure'];
-    $getearlytime="select * from log where log_enter_time<'".$yearAgoDate."' and log_leave_time >'".$yearAgoDate."'";
+    $getearlytime="select * from log where log_enter_time<'".$yearAgoDate."' and log_leave_time >'".$yearAgoDate."' and student_id= '".$student_id."'";
     $early_time=0;
     $ret=$mysqli->query($getearlytime);
     if(mysqli_num_rows($ret)!=0){
         $early_time = $ret->fetch_assoc()['log_leave_time'];
         $early_time=strtotime($early_time)-strtotime($yearAgoDate);
     }
-    $getlatetime="select * from log where log_enter_time<'".$currentDate."' and ( log_leave_time >'".$currentDate."' or log_leave_time is null)";
+    $getlatetime="select * from log where log_enter_time<'".$currentDate."' and ( log_leave_time >'".$currentDate."' or log_leave_time is null) and student_id= '".$student_id."'";
     $late_time=0;
     $ret=$mysqli->query($getlatetime);
     if(mysqli_num_rows($ret)!=0){
